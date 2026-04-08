@@ -1,5 +1,9 @@
 {
-  "private": true,
+  "name": "simple-new-tab",
+  "version": "1.0.0",
+  "description": "A simple reader view browser extension.",
+  "author": "Daniel Anderson",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "clean": "node ./scripts/clean.mjs",
