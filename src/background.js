@@ -12,3 +12,19 @@ chrome.action.onClicked.addListener(async tab => {
   }
 });
 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'get-zoom') {
+    chrome.tabs.getZoom(sender.tab.id, zoomFactor => {
+      sendResponse({ zoomFactor });
+    });
+    return true;
+  }
+});
+
+chrome.tabs.onZoomChange.addListener(zoomChangeInfo => {
+  chrome.tabs.sendMessage(zoomChangeInfo.tabId, {
+    action: 'zoom-changed',
+    zoomFactor: zoomChangeInfo.newZoomFactor,
+  }).catch(() => {});
+});
+

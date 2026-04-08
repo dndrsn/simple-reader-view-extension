@@ -7,18 +7,27 @@ let savedBody = null;
 let savedStyleStates = [];
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  if (message.action !== 'toggle-reader') return;
-
-  if (readerActive) {
-    exitReaderMode();
+  if (message.action === 'toggle-reader') {
+    if (readerActive) {
+      exitReaderMode();
+    }
+    else {
+      enterReaderMode();
+    }
+    sendResponse({ ok: true });
+    return true;
   }
-  else {
-    enterReaderMode();
-  }
 
-  sendResponse({ ok: true });
-  return true;
+  if (message.action === 'zoom-changed') {
+    if (readerActive) {
+      applyInverseZoom(message.zoomFactor);
+    }
+  }
 });
+
+const applyInverseZoom = zoomFactor => {
+  document.documentElement.style.zoom = zoomFactor ? 1 / zoomFactor : 1;
+};
 
 function enterReaderMode() {
   const docClone = document.cloneNode(true);
@@ -74,6 +83,12 @@ function enterReaderMode() {
 
   readerActive = true;
   window.scrollTo(0, 0);
+
+  chrome.runtime.sendMessage({ action: 'get-zoom' }, response => {
+    if (response?.zoomFactor) {
+      applyInverseZoom(response.zoomFactor);
+    }
+  });
 }
 
 
@@ -94,5 +109,6 @@ function exitReaderMode() {
     savedBody = null;
   }
 
+  document.documentElement.style.zoom = '';
   readerActive = false;
 }
