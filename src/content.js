@@ -55,24 +55,35 @@ function enterReaderMode() {
   // Build the reader body
   const newBody = document.createElement('body');
   newBody.id = 'reader-view-body';
+  newBody.className = 'bg-stone-50';
 
   const container = document.createElement('div');
   container.id = 'reader-container';
+  container.className = 'max-w-[80ch] mx-auto px-8 pt-12 pb-20';
+
+  const header = document.createElement('div');
+  header.id = 'reader-header';
+  header.className = 'mb-8 pb-6 border-b border-stone-200';
 
   const title = document.createElement('h1');
   title.id = 'reader-title';
+  title.className = 'font-sans text-[2rem] font-bold leading-snug text-gray-900 mb-2';
   title.textContent = article.title || document.title;
-  container.appendChild(title);
+  header.appendChild(title);
 
   if (article.byline) {
     const byline = document.createElement('p');
     byline.id = 'reader-byline';
+    byline.className = 'font-sans text-sm text-gray-400';
     byline.textContent = article.byline;
-    container.appendChild(byline);
+    header.appendChild(byline);
   }
+
+  container.appendChild(header);
 
   const content = document.createElement('div');
   content.id = 'reader-content';
+  content.className = 'prose prose-xl';
   content.innerHTML = article.content;
   container.appendChild(content);
 

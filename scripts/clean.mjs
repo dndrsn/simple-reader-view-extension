@@ -1,7 +1,7 @@
 
-const fse = require('fs-extra');
+import fse from 'fs-extra';
 
-const { log } = require('../lib/logging');
+import { log } from '../lib/logging.mjs';
 
 
 const config = {
@@ -11,4 +11,3 @@ const config = {
 
 fse.removeSync(config.pubDir);
 log.debug('Clean :: removed pub files');
-

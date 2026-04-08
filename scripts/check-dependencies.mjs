@@ -1,11 +1,11 @@
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const colors = require('ansi-colors');
-const depcheck = require('depcheck');
-const { each, first, isArray, isEmpty, keys, map } = require('lodash');
-const yaml = require('yaml');
+import colors from 'ansi-colors';
+import depcheck from 'depcheck';
+import { each, first, isArray, isEmpty, keys, map } from 'lodash-es';
+import yaml from 'yaml';
 
 
 // eslint-disable-next-line no-console

@@ -1,13 +1,13 @@
 
-const cpx = require('cpx');
-const esbuild = require('esbuild');
-const fse = require('fs-extra');
-const { each } = require('lodash');
-const yargs = require('yargs/yargs');
+import cpx from 'cpx';
+import esbuild from 'esbuild';
+import fse from 'fs-extra';
+import { each } from 'lodash-es';
+import yargs from 'yargs/yargs';
 
-const copyConfig = require('../copy.config');
-const esbuildConfig = require('../esbuild.config');
-const { log } = require('../lib/logging');
+import copyConfig from '../copy.config.mjs';
+import esbuildConfig from '../esbuild.config.mjs';
+import { log } from '../lib/logging.mjs';
 
 
 const clean = async () => {
@@ -91,4 +91,3 @@ const main = async () => {
 
 
 main();
-

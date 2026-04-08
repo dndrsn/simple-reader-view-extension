@@ -1,6 +1,6 @@
 
 extends:
-  - stylelint-config-vshift
+  - stylelint-config-vshift/configs/tailwind.yml
 rules:
   order/order:
     - type: at-rule
