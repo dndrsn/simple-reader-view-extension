@@ -71,12 +71,30 @@ function enterReaderMode() {
   title.textContent = article.title || document.title;
   header.appendChild(title);
 
-  if (article.byline) {
-    const byline = document.createElement('p');
-    byline.id = 'reader-byline';
-    byline.className = 'font-sans text-sm text-gray-400';
-    byline.textContent = article.byline;
-    header.appendChild(byline);
+  if (article.byline || article.publishedTime) {
+    const meta = document.createElement('div');
+    meta.id = 'reader-meta';
+    meta.className = 'flex gap-4 font-sans text-sm text-gray-400';
+
+    if (article.byline) {
+      const byline = document.createElement('span');
+      byline.className = 'font-bold';
+      byline.id = 'reader-byline';
+      byline.textContent = article.byline;
+      meta.appendChild(byline);
+    }
+
+    if (article.publishedTime) {
+      const date = document.createElement('span');
+      date.id = 'reader-date';
+      const parsed = new Date(article.publishedTime);
+      date.textContent = isNaN(parsed)
+        ? article.publishedTime
+        : parsed.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+      meta.appendChild(date);
+    }
+
+    header.appendChild(meta);
   }
 
   container.appendChild(header);
