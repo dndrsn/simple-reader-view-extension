@@ -19,6 +19,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
     return true;
   }
+
+  if (message.action === 'set-icon') {
+    const path = message.enabled
+      ? { 16: 'icons/icon16-disable.png', 48: 'icons/icon48-disable.png', 128: 'icons/icon128-disable.png' }
+      : { 16: 'icons/icon16.png', 48: 'icons/icon48.png', 128: 'icons/icon128.png' };
+    chrome.action.setIcon({ tabId: sender.tab.id, path });
+  }
 });
 
 chrome.tabs.onZoomChange.addListener(zoomChangeInfo => {

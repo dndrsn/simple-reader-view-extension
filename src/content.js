@@ -113,6 +113,8 @@ function enterReaderMode() {
   readerActive = true;
   window.scrollTo(0, 0);
 
+  chrome.runtime.sendMessage({ action: 'set-icon', enabled: true });
+
   chrome.runtime.sendMessage({ action: 'get-zoom' }, response => {
     if (response?.zoomFactor) {
       applyInverseZoom(response.zoomFactor);
@@ -140,4 +142,6 @@ function exitReaderMode() {
 
   document.documentElement.style.zoom = '';
   readerActive = false;
+
+  chrome.runtime.sendMessage({ action: 'set-icon', enabled: false });
 }
