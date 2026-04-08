@@ -1,0 +1,24 @@
+
+extends:
+  - stylelint-config-vshift
+rules:
+  order/order:
+    - type: at-rule
+      name: extend
+    - dollar-variables
+    - custom-properties
+    - declarations
+  selector-pseudo-class-no-unknown:
+    - true
+    - ignorePseudoClasses:
+        - global
+  '@stylistic/declaration-block-trailing-semicolon':
+    - always
+    - ignore: single-declaration
+ignoreFiles:
+  - node_modules/**/*
+  - pub/**/*
+  - dist/**/*
+
+
+
